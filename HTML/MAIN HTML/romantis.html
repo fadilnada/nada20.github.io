@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pesan-Kesan</title>
+  <style>
+    :root{
+      --bg:#fff7fb; --accent:#ff6b9a; --muted:#7a5a73; --card:#ffffffdd;
+    } 
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{background:linear-gradient(180deg,var(--bg),#fff);color:#333;display:flex;align-items:center;justify-content:center;padding:24px}
+    .wrap{width:100%;max-width:920px;background:var(--card);border-radius:18px;box-shadow:0 8px 30px rgba(128,90,120,0.12);overflow:hidden}
+
+    header{padding:40px 28px 24px;display:flex;gap:20px;align-items:center}
+    .hero{flex:1}
+    .hero h1{margin:0;font-size:28px;color:var(--accent)}
+    .hero p{margin:8px 0 0;color:var(--muted)}
+
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;box-shadow:0 4px 12px rgba(255,107,154,0.18)}
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(255,107,154,0.18)}
+
+    main{display:grid;grid-template-columns:1fr 360px;gap:22px;padding:0 28px 28px}
+    .card{background:linear-gradient(180deg,#fff8fb,#fff);padding:18px;border-radius:12px}
+
+    /* gallery */
+    .slideshow{height:300px;border-radius:10px;overflow:hidden;position:relative}
+    .slide{position:absolute;inset:0;display:flex;align-items:end;justify-content:center;padding:18px;transition:opacity .8s;opacity:0}
+    .slide.active{opacity:1}
+    .photo{width:100%;height:100%;object-fit:cover;border-radius:10px}
+    .caption{position:absolute;left:18px;bottom:18px;background:rgba(0,0,0,0.38);color:white;padding:8px 12px;border-radius:8px;font-size:14px}
+
+    /* falling hearts */
+    .hearts{pointer-events:none;position:absolute;inset:0;overflow:hidden}
+    .heart{position:absolute;width:28px;height:28px;transform-origin:center;opacity:0.9}
+
+    /* countdown */
+    .countdown{display:flex;gap:8px;align-items:center;font-weight:700}
+    .countdown .num{background:#fff3;backdrop-filter:blur(6px);padding:8px 12px;border-radius:8px}
+
+    /* message */
+    .secret{margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#fffefc);display:none}
+    .secret.show{display:block}
+
+    /* responsive */
+    @media (max-width:880px){main{grid-template-columns:1fr;}
+      .slideshow{height:220px}
+    }
+
+    footer{padding:18px 28px;border-top:1px solid rgba(0,0,0,0.04);display:flex;justify-content:space-between;align-items:center}
+
+    /* cute little polaroid style thumbnails */
+    .thumbs{display:flex;gap:8px;margin-top:12px}
+    .thumb{width:66px;height:66px;border-radius:8px;overflow:hidden;box-shadow:0 6px 18px rgba(120,90,110,0.07)}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="page">
+    <div class="hearts" id="hearts"></div>
+
+    <header>
+      <div class="hero">
+        <h1>Riznada Mutiashafa💗</h1>
+        <p>Manusia yang lahir pda tanggal 22 Oktober 2005.</p>
+        <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+          <div class="countdown" title="Hitung mundur ke momen penting">
+            <span style="font-size:12px;color:var(--muted)">Kamu sudah hidup selama</span>
+<div class="num" id="days">--</div>
+<div style="font-size:12px;color:var(--muted)">hari 💖</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="loveBtn">I ♥ You</button>
+        <button class="btn secondary" id="revealBtn">yang ini sayangg</button>
+        <button class="btn secondary" id="musicToggle">Play ♫</button>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="card slideshow" id="slideshow">
+          <div class="slide active" data-caption="Pertama kali kita bertemu">
+            <!-- sample svg photo -->
+            <svg class="photo" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ffd1e6"/><stop offset="1" stop-color="#ffd9f0"/></linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#g1)"/>
+              <g transform="translate(80,60) scale(1)">
+                <rect x="0" y="0" width="640" height="380" rx="20" fill="#ffffff66"/>
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="38" fill="#6a2a4a">Foto Kenangan 1</text>
+              </g>
+            </svg>
+            <div class="caption">Pertama kali kita bertemu</div>
+          </div>
+
+          <div class="slide" data-caption="Liburan bareng">
+            <svg class="photo" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+              <defs><linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#c8f7ff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient></defs>
+              <rect width="100%" height="100%" fill="url(#g2)"/>
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="38" fill="#1b516a">Foto Kenangan 2</text>
+            </svg>
+            <div class="caption">Liburan bareng</div>
+          </div>
+
+          <div class="slide" data-caption="Momen spesial kita">
+            <svg class="photo" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+              <defs><linearGradient id="g3" x1="0" x2="1"><stop offset="0" stop-color="#fff7d6"/><stop offset="1" stop-color="#fff0e1"/></linearGradient></defs>
+              <rect width="100%" height="100%" fill="url(#g3)"/>
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="38" fill="#7a4b1a">Foto Kenangan 3</text>
+            </svg>
+            <div class="caption">Momen spesial kita</div>
+          </div>
+        </div>
+
+        <div class="thumbs card" style="margin-top:12px">
+          <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23ffd1e6'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%236a2a4a'>1</text></svg>" alt="thumb1"></div>
+          <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23c8f7ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%231b516a'>2</text></svg>" alt="thumb2"></div>
+          <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23fff7d6'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%237a4b1a'>3</text></svg>" alt="thumb3"></div>
+        </div>
+
+      </section>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin:0">Pesan Dari aku nihh</h3>
+          <p style="color:var(--muted);margin-top:6px">Buka yaa sayangg, pencet yang atas tuhh.</p>
+          <div id="secret" class="secret">Hai sayangg, Happy Birthday yang ke-20 yaa semoga panjang umur sehat selalu pokonya semuanya dehh, aku doain semoga semua keinginan kamu cepet tergapaiyaa. 💌</div>
+
+          <div style="margin-top:12px">
+            <h4 style="margin:0">Tombol Iseng</h4>
+            <p style="color:var(--muted);margin-top:6px">fitur tambahan doang wkwk.</p>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button class="btn" id="confettiBtn">Buat Kejutan</button>
+              <button class="btn secondary" id="toggleHearts">Toggle Hati</button>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <h4 style="margin:0">Next Time</h4>
+            <p style="color:var(--muted);margin-top:6px;font-size:13px">tunggu yaa nanti ada update, btw fotonya aku kosongin soalnya kita kurang banyak fotonya.</p>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+        <div class="card">
+          <h4 style="margin:0">Thumbnail Preview</h4>
+          <p style="color:var(--muted);margin-top:6px;font-size:13px">Klik thumbnail untuk pindah slide.</p>
+        </div>
+      </aside>
+
+    </main>
+
+    <footer>
+      <div style="font-size:13px;color:var(--muted)">Made with ♥ — contoh single page</div>
+      <div style="font-size:13px;color:var(--muted)">Tip: simpan file ini sebagai <code>index.html</code> lalu buka di browser</div>
+    </footer>
+  </div>
+
+  <audio id="bgMusic" src="/song/Sal Priadi & Nadin Amizah - Amin Paling Serius (Official Music Video).mp3" preload="none">
+    <!-- default: silent. Replace src with your mp3 URL or file path -->
+  </audio>
+
+  <script>
+    // ========== CONFIG ==========
+    // Ubah tanggal target di sini (format YYYY, M-1, D) 
+    const targetDate = new Date(2026, 1, 14); // contoh: 14 Feb 2026
+
+    // ========== SLIDESHOW ==========
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let si = 0;
+    function showSlide(i){
+      slides.forEach((s,idx)=>s.classList.toggle('active', idx===i));
+      document.querySelectorAll('.caption').forEach((c,idx)=>c.textContent = slides[i].dataset.caption);
+    }
+    showSlide(si);
+    setInterval(()=>{ si = (si+1)%slides.length; showSlide(si); }, 5000);
+
+    // thumbnails clickable
+    document.querySelectorAll('.thumb').forEach((t,idx)=> t.addEventListener('click', ()=>{ si=idx; showSlide(si); }));
+
+   // ========== DAYS SINCE BIRTH ==========
+function updateDaysSinceBirth(){
+  const birthDate = new Date(2005, 9, 22); // ⚠️ ubah ke tanggal lahirmu (format: YYYY, M-1, D)
+  const now = new Date();
+  const diff = now - birthDate; // selisih waktu dari lahir sampai sekarang
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  document.getElementById('days').textContent = days;
+}
+updateDaysSinceBirth();
+setInterval(updateDaysSinceBirth, 1000 * 60 * 60); // update tiap jam
+
+    // ========== HEARTS ==========
+    const heartsEl = document.getElementById('hearts');
+    let heartsOn = true;
+    function createHeart(){
+      if(!heartsOn) return;
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const size = 18 + Math.random()*28;
+      h.style.width = size+'px'; h.style.height = size+'px';
+      h.style.left = Math.random()*100 + '%';
+      h.style.top = Math.random()*40 + '%';
+      h.style.opacity = 0.9 - Math.random()*0.4;
+      h.innerHTML = `<svg viewBox="0 0 32 32" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg"><path d="M16 27s-11-6.7-11-13.3S8 2 16 8s11-1.2 11 5.7S16 27 16 27z" fill="${encodeURIComponent('#ff6b9a').replace(/%23/,'%23') }"/></svg>`;
+      heartsEl.appendChild(h);
+      h.animate([{transform:'translateY(0) scale(0.9)',opacity:1},{transform:'translateY(-180px) scale(1.1)',opacity:0}],{duration:3600+Math.random()*2000,easing:'ease-out'}).onfinish = ()=> h.remove();
+    }
+    let heartTimer = setInterval(createHeart, 450);
+
+    document.getElementById('toggleHearts').addEventListener('click', ()=>{ heartsOn = !heartsOn; if(!heartsOn) heartsEl.innerHTML=''; });
+
+    // ========== SECRET MESSAGE ==========
+    const secret = document.getElementById('secret');
+    document.getElementById('revealBtn').addEventListener('click', ()=>{ secret.classList.toggle('show'); });
+
+    // ========== LOVE BUTTON (simple confetti-like dots) ==========
+    document.getElementById('loveBtn').addEventListener('click', ()=>{
+      for(let i=0;i<24;i++){ const d=document.createElement('div'); d.style.position='fixed'; d.style.left=(50+Math.random()*400-200)+'px'; d.style.top=(50+Math.random()*400-200)+'px'; d.style.width=d.style.height=(6+Math.random()*10)+'px'; d.style.borderRadius='50%'; d.style.background=['#ff6b9a','#ffd1e6','#ffb5c7'][Math.floor(Math.random()*3)]; d.style.opacity='0.95'; document.body.appendChild(d); d.animate([{transform:'translateY(0) scale(1)',opacity:1},{transform:'translateY(-220px) scale(0.4)',opacity:0}],{duration:900+Math.random()*700}).onfinish=()=>d.remove(); }
+    });
+
+    // ========== MUSIC PLAY/PAUSE ==========
+    const music = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    let playing = false;
+    musicToggle.addEventListener('click', ()=>{
+      if(!playing){
+        // if user wants to use their own audio, they can set music.src in the HTML
+        music.play().catch(()=>{}); playing=true; musicToggle.textContent='Pause ♫';
+      } else { music.pause(); playing=false; musicToggle.textContent='Play ♫'; }
+    });
+
+    // ========== Confetti small (for confettiBtn) ==========
+    document.getElementById('confettiBtn').addEventListener('click', ()=>{
+      for(let i=0;i<60;i++){
+        const p=document.createElement('div'); p.style.position='fixed'; p.style.left=(50+Math.random()*800-400)+'px'; p.style.top=(50+Math.random()*500-250)+'px'; p.style.width='8px'; p.style.height='12px'; p.style.background=['#ffd1e6','#ff6b9a','#c8f7ff','#fff7d6'][Math.floor(Math.random()*4)]; p.style.opacity='0.95'; p.style.transform='rotate('+Math.random()*360+'deg)'; p.style.borderRadius='2px'; document.body.appendChild(p); p.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:'translateY(300px) rotate(360deg)',opacity:0}],{duration:1000+Math.random()*900}).onfinish=()=>p.remove(); }
+    });
+
+    // stop creating hearts when tab is hidden
+    document.addEventListener('visibilitychange', ()=>{ if(document.hidden) { clearInterval(heartTimer); } else { heartTimer = setInterval(createHeart, 450); } });
+
+  </script>
+</body>
+</html>

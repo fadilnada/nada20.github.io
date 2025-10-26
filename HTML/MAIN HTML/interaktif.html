@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ceria Kita — Playful Love Page</title>
+<style>
+  :root{--p1:#ffd1e6;--p2:#d8b4ff;--p3:#bfe9ff;--text:#342444}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(135deg,var(--p1),var(--p2) 45%,var(--p3));color:var(--text);display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{width:100%;max-width:980px;background:rgba(255,255,255,0.9);border-radius:20px;box-shadow:0 12px 40px rgba(30,20,40,0.12);overflow:hidden}
+  header{padding:28px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  header h1{margin:0;font-size:24px}
+  .controls{display:flex;gap:8px;align-items:center}
+  .btn{background:linear-gradient(90deg,#ff8db2,#caa1ff);border:0;color:white;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;box-shadow:0 6px 18px rgba(170,110,190,0.15)}
+  main{display:grid;grid-template-columns:1fr 340px;gap:18px;padding:18px}
+  .panel{padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.85),#ffffff)}
+
+  .rotator{font-size:20px;font-weight:700;margin-bottom:12px}
+  .small{color:#6b5b73;font-size:14px}
+
+  .fun-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.6);border:1px solid rgba(140,100,150,0.08);cursor:pointer}
+
+  .slider-row{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+  .emoji{font-size:40px;text-align:center}
+
+  .hug-area{height:160px;border-radius:10px;display:flex;align-items:center;justify-content:center;border:2px dashed rgba(120,80,140,0.08);margin-top:12px}
+
+  footer{padding:16px;border-top:1px dashed rgba(0,0,0,0.04);display:flex;justify-content:space-between;align-items:center}
+
+  @media (max-width:900px){main{grid-template-columns:1fr} .controls{display:none}}
+
+  /* floating hearts/emoji container */
+  #floaters{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .floater{position:absolute;transform-origin:center}
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div id="floaters"></div>
+    <header>
+      <h1>Ceria Kita ✨</h1>
+      <div class="controls">
+        <button class="btn" id="hugBtn">Peluk Virtual 🤗</button>
+        <button class="btn" id="clickMe">Klik Aku!</button>
+        <button class="btn" id="musicToggle">Play ♫</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="rotator" id="rotator">Halo, sayang! 💕</div>
+        <div class="small">Pesan lucu & mesra yang berubah-ubah — klik tombol untuk kejutan.</div>
+
+        <div class="fun-buttons">
+          <div class="pill" id="msg1">Kamu imut!</div>
+          <div class="pill" id="msg2">Kangen deh :3</div>
+          <div class="pill" id="msg3">Mau makan apa?</div>
+          <div class="pill" id="msg4">Senyummu bikin dayku</div>
+        </div>
+
+        <div style="margin-top:16px">
+          <h4 style="margin:0">Seberapa sayang kamu hari ini?</h4>
+          <div class="slider-row">
+            <input type="range" id="loveRange" min="0" max="100" value="50">
+            <div class="emoji" id="loveEmoji">😐</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px">
+          <h4 style="margin:0">Kotak Rahasia</h4>
+          <p class="small">Isi pesan untuk pasanganmu — tersimpan di localStorage (privat di browser).</p>
+          <textarea id="secretInput" placeholder="Tulis pesan manismu di sini..." style="width:100%;height:80px;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);"></textarea>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn" id="saveMsg">Simpan Pesan</button>
+            <button class="btn" id="showMsg">Tampilkan Pesan</button>
+          </div>
+          <div id="savedMsg" style="margin-top:10px;display:none;padding:10px;border-radius:8px;background:rgba(245,240,255,0.6)"></div>
+        </div>
+
+      </section>
+
+      <aside class="panel">
+        <h3 style="margin-top:0">Mini Game Romantis</h3>
+        <p class="small">Coba tekan tombol acak untuk mendapat pesan lucu atau puisi pendek.</p>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn" id="surprise">Surprise!</button>
+          <button class="btn" id="quizBtn">Tebak Perasaan</button>
+        </div>
+
+        <div id="result" style="margin-top:12px;font-weight:700;min-height:52px;display:flex;align-items:center"></div>
+
+        <div style="margin-top:14px">
+          <div class="hug-area" id="hugArea">Letakkan kursor di sini untuk pelukan virtual 🤗</div>
+        </div>
+      </aside>
+
+    </main>
+
+    <footer>
+      <div style="font-size:13px;color:#6b5b73">Made with giggles & love — Simpan halaman ini sebagai index.html dan coba di browsermu</div>
+      <div style="font-size:13px;color:#6b5b73">Tip: pesan tersimpan hanya di browsermu</div>
+    </footer>
+  </div>
+
+  <audio id="bgAudio" loop preload="none"></audio>
+
+<script>
+  // rotating messages
+  const rotMsgs = ['Aku sayang kamu! 💖','Kamu beneran istimewa ✨','Mikirin kamu terus','Kangen kamu, ayo ketemu!','Kamu bikin aku senyum 😄'];
+  let rIdx=0; const rotEl=document.getElementById('rotator');
+  setInterval(()=>{ rIdx=(rIdx+1)%rotMsgs.length; rotEl.textContent = rotMsgs[rIdx]; },4000);
+
+  // clickable pills
+  document.querySelectorAll('.pill').forEach(p=>p.addEventListener('click', ()=>{
+    const texts = ['Hihi, makasih kamu!','Ayo jalan-jalan yuk','Kamu unik banget','Peluk dulu nih 🤗'];
+    rotEl.textContent = texts[Math.floor(Math.random()*texts.length)];
+    spawnFloater('💖');
+  }));
+
+  // click me button random message
+  document.getElementById('clickMe').addEventListener('click', ()=>{
+    const msgs=['Surprise! Kamu dapat ciuman virtual 😘','Yuk video call sekejap','Bikin kopi dulu ya :)','Kamu terbaik!'];
+    rotEl.textContent = msgs[Math.floor(Math.random()*msgs.length)]; spawnFloater('🎉');
+  });
+
+  // love range slider -> emoji change + color
+  const loveRange = document.getElementById('loveRange');
+  const loveEmoji = document.getElementById('loveEmoji');
+  loveRange.addEventListener('input', ()=>{
+    const v = parseInt(loveRange.value);
+    if(v<20) loveEmoji.textContent='😶';
+    else if(v<40) loveEmoji.textContent='🙂';
+    else if(v<60) loveEmoji.textContent='😊';
+    else if(v<80) loveEmoji.textContent='😍';
+    else loveEmoji.textContent='🥰';
+    // visual cue: change card bg tint
+    document.getElementById('card').style.boxShadow = `0 12px 40px rgba(${140+Math.floor(v/100*50)},${80+Math.floor(v/100*80)},${160+Math.floor(v/100*80)},0.15)`;
+  });
+
+  // save secret to localStorage
+  document.getElementById('saveMsg').addEventListener('click', ()=>{
+    const t = document.getElementById('secretInput').value;
+    if(!t) return alert('Tulis pesannya dulu :)');
+    localStorage.setItem('secretForLove', t);
+    alert('Pesan tersimpan di browsermu!');
+  });
+  document.getElementById('showMsg').addEventListener('click', ()=>{
+    const s = localStorage.getItem('secretForLove');
+    const box = document.getElementById('savedMsg');
+    if(s){ box.style.display='block'; box.textContent = s; } else { alert('Belum ada pesan tersimpan.'); }
+  });
+
+  // surprise & quiz
+  document.getElementById('surprise').addEventListener('click', ()=>{
+    const r = Math.random();
+    const out = r<0.4? 'Puisi pendek: "Di matamu kutemukan rumah"' : r<0.8? 'Hadiah virtual: 🌸🌸🌸' : 'Video singkat: (bayangkan adegan lucu)';
+    document.getElementById('result').textContent = out; spawnFloater('✨');
+  });
+  document.getElementById('quizBtn').addEventListener('click', ()=>{
+    const v = Math.random();
+    const ans = v<0.33? 'Sangat kangen 😭' : v<0.66? 'Rindu biasa saja 😊' : 'Mau ketemu nih! 💃';
+    document.getElementById('result').textContent = 'Hasil: '+ans; spawnFloater('💘');
+  });
+
+  // hug area: on mouseover spawn many hearts
+  const hugArea = document.getElementById('hugArea');
+  hugArea.addEventListener('mouseenter', ()=>{
+    for(let i=0;i<18;i++){ setTimeout(()=>spawnFloater('💞'), i*80); }
+  });
+
+  // hug button: bursts
+  document.getElementById('hugBtn').addEventListener('click', ()=>{ for(let i=0;i<28;i++){ setTimeout(()=>spawnFloater('🤗'), i*40); } });
+
+  // music toggle
+  const audio = document.getElementById('bgAudio');
+  const musicToggle = document.getElementById('musicToggle');
+  let playing=false;
+  musicToggle.addEventListener('click', ()=>{
+    if(!playing){ audio.src=''; audio.play().catch(()=>{}); musicToggle.textContent='Pause ♫'; playing=true; } else { audio.pause(); musicToggle.textContent='Play ♫'; playing=false; }
+  });
+
+  // spawn floater (emoji/hearts/confetti)
+  const floaters = document.getElementById('floaters');
+  function spawnFloater(symbol){
+    const el = document.createElement('div'); el.className='floater'; el.style.left = (10 + Math.random()*80) + '%'; el.style.top = (20 + Math.random()*60) + '%'; el.style.fontSize = (18 + Math.random()*36) + 'px'; el.style.opacity = '0.95'; el.textContent = symbol;
+    floaters.appendChild(el);
+    const dur = 900 + Math.random()*1000;
+    el.animate([{transform:'translateY(0) scale(1)',opacity:1},{transform:'translateY(-180px) rotate('+Math.random()*360+'deg) scale(0.6)',opacity:0}],{duration:dur,easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish = ()=> el.remove();
+  }
+
+  // small starter floater
+  setTimeout(()=>spawnFloater('💖'),600);
+
+</script>
+</body>
+</html>
